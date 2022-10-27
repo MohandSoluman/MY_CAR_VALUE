@@ -16,7 +16,7 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 
 @Controller('auth')
-@Serialize(UserDto)
+@Serialize(UserDto) // applied for all requests
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -24,6 +24,7 @@ export class UsersController {
   createUser(@Body() body: CreateUserDto) {
     this.usersService.create(body.email, body.password);
   }
+  // @UseInterceptors(new SerializeInterceptor(UserDto))
 
   @Get('/:id')
   async findUser(@Param('id') id: string) {
